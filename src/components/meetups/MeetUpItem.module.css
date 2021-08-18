@@ -39,9 +39,11 @@
   background-color: transparent;
   padding: 0.5rem 1.5rem;
   border-radius: 4px;
+  margin: 10px;
 }
 
 .actions button:hover,
 .actions button:active {
-  background-color: #ffe2ed;
+  color: #fff;
+  background-color: #77002e;
 }

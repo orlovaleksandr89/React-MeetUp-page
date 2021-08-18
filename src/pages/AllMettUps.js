@@ -1,5 +1,6 @@
 import MeetUpList from '../components/meetups/MeetUpList'
 import { useState, useEffect } from 'react'
+import { FIRE_URL } from '../constants/dummy_data'
 
 function AllMeetUpPage() {
   const [isLoading, setIsLoading] = useState(true)
@@ -7,9 +8,8 @@ function AllMeetUpPage() {
 
   useEffect(() => {
     setIsLoading(true)
-    fetch(
-      'https://react-gettin-started-97d2a-default-rtdb.firebaseio.com/meetups.json'
-    )
+
+    fetch(FIRE_URL)
       .then((response) => response.json())
       .then((data) => {
         const meetups = []
@@ -19,6 +19,7 @@ function AllMeetUpPage() {
             ...data[key],
           }
           meetups.push(meetup)
+          console.log('fetch')
         }
         setIsLoading(false)
         setLoadedMeetUps(meetups)

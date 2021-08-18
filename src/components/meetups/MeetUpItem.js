@@ -1,11 +1,14 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 
 import Card from '../ui/Card'
 import classes from './MeetUpItem.module.css'
 import FavoritesContext from '../../store/favorite-context'
+import Backdrop from '../layout/Backdrop'
+import Modal from '../layout/Modal'
 
 function MeetUpItem(props) {
   const favoritesCtx = useContext(FavoritesContext)
+  const [showModal, setShowModal] = useState(false)
 
   const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id)
 
@@ -23,6 +26,13 @@ function MeetUpItem(props) {
     }
   }
 
+  function showModalHendler() {
+    setShowModal(true)
+  }
+  function closeModalHendler() {
+    setShowModal(false)
+  }
+
   return (
     <li className={classes.item}>
       <Card>
@@ -38,7 +48,16 @@ function MeetUpItem(props) {
           <button onClick={togglefavoriteStatusHandler}>
             {itemIsFavorite ? 'Remove from favorites' : 'Add to favorites'}
           </button>
+          <button onClick={showModalHendler}>Delete MeetUpItem</button>
         </div>
+        {showModal && <Backdrop onClick={closeModalHendler} />}
+        {showModal && (
+          <Modal
+            onClose={closeModalHendler}
+            meetupId={props.id}
+            onLoad={props.onLoad}
+          />
+        )}
       </Card>
     </li>
   )
